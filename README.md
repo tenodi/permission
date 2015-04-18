@@ -42,3 +42,10 @@ Route for redirecting when user doesn't have permission is `/login`.
 To override these 2 values, do the following on your `app` configuration:
 
 	app.set('permission', {role: 'myRole', noPermissionRedirect: '/myRedirectRoute'});
+
+
+## Contribution
+If you want to suggest something, make a pull request or contribute in any other form,
+you're welcome to do so @ GitHub's [repository](https://github.com/ttenodi/permission).
+
+*Please note:* This is young module and it will develop soon to satisfy more use cases.

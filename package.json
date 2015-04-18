@@ -1,6 +1,6 @@
 {
   "name": "permission",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Make user permissions for views based on roles.",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,12 @@
     "authentication"
   ],
   "author": "Tomislav Tenodi <tomislav.tenodi@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ttenodi/permission.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ttenodi/permission/issues"
+  }
 }
