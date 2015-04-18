@@ -1,9 +1,14 @@
+/*!
+ * permission
+ * Copyright(c) 2015 Tomislav Tenodi
+ * MIT Licensed
+ */
+
 /**
  * Function to be called after require!
  * @param {array} roles User roles that have authorization for the view.
  *            If undefined, any role can check the view.
  */
-
 module.exports = function(roles){
   return function(req, res, next) {
     
@@ -20,10 +25,13 @@ module.exports = function(roles){
       if (req.app.get('permission').noPermissionRedirect) {
         noPermissionRedirect = req.app.get('permission').noPermissionRedirect;
       }
-      if (req.app.get('permission')){
-        roleProperty = req.app.get('permission').role;
+      if (req.app.get('permission').role){
+        role = req.app.get('permission').role;
       }
     }
+
+    if (req.isAuthenticated() && !req.user[role]) { throw new Error("User doesn't have property named: " + 
+                                                       role + ". See Advantage Start in docs") }
     
 
     // checks passport integrated function

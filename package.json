@@ -18,7 +18,12 @@
     "authentication"
   ],
   "author": "Tomislav Tenodi <tomislav.tenodi@gmail.com>",
-  "license": "ISC",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ttenodi/permission.git"
