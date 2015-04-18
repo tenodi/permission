@@ -1,6 +1,6 @@
 {
   "name": "permission",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Make user permissions for views based on roles.",
   "main": "index.js",
   "scripts": {
