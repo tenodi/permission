@@ -32,12 +32,12 @@ Fill out array with more roles, if needed.
 
 
 #### Advantage start
-There are 2 default valus in _permission_ module:
+There are 2 default values in _permission_ module:
 - role property
 - route for no permission
 
-Default role property is searched in Express' user role property, `user.role`. 
-Route for redirecting when user doesn't have permission is `/login`.
+Default role property is searched in Express' user role property, `req.user.role`. 
+Route for redirection when user doesn't have permission is `/login`.
 
 To override these 2 values, do the following on your `app` configuration:
 
