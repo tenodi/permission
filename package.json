@@ -1,0 +1,22 @@
+{
+  "name": "permission",
+  "version": "0.1.3",
+  "description": "Make user permissions for views based on roles.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "permission",
+    "role",
+    "permissions",
+    "access",
+    "auth",
+    "authorization",
+    "passport",
+    "express",
+    "authentication"
+  ],
+  "author": "Tomislav Tenodi <tomislav.tenodi@gmail.com>",
+  "license": "ISC"
+}
