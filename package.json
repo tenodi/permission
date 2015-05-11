@@ -1,7 +1,7 @@
 {
   "name": "permission",
-  "version": "0.1.5",
-  "description": "Make user permissions for views based on roles.",
+  "version": "0.1.6",
+  "description": "Handle user permissions for routes based on roles.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +18,9 @@
     "authentication"
   ],
   "author": "Tomislav Tenodi <tomislav.tenodi@gmail.com>",
+  "contributors": [
+    "Lubert Theo <theo.lubert@gmail.com>"
+  ],
   "licenses": [
     {
       "type": "MIT",
