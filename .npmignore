@@ -1,0 +1,13 @@
+test/
+
+# Node.js
+.npmignore
+node_modules/
+npm-debug.log
+
+
+# Git
+.git*
+
+# Utilities
+.travis.yml
