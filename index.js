@@ -15,14 +15,14 @@ module.exports = function(roles){
     /**
      * Default configuration
      */
-    var noPermissionRedirect  = '/login';
+    var noPermissionRedirect  = null;
     var role                  = 'role';
 
     /**
      * Default configuration is overriden
      */
     if (req.app.get('permission')){
-      if (req.app.get('permission').noPermissionRedirect) {
+      if ('noPermissionRedirect' in req.app.get('permission')) {
         noPermissionRedirect = req.app.get('permission').noPermissionRedirect;
       }
       if (req.app.get('permission').role){
@@ -40,12 +40,17 @@ module.exports = function(roles){
         next();
       } else if (roles.indexOf(req.user[role]) > -1){
         next();
-      } else {
+      } else if (noPermissionRedirect != null) {
         res.redirect(noPermissionRedirect);
+      } else {
+        res.status(401).send(null);
       }
     }
-    else {
+    else if (noPermissionRedirect != null) {
       res.redirect(noPermissionRedirect);
+    }
+    else {
+      res.status(401).send(null);
     }
   }
 }
