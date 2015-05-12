@@ -16,8 +16,8 @@ It is as simple as `require('permission')`, because you do want to _require perm
 	})
 
 Pass an array determining which roles one controller supports. 
-Pass an _empty array_ if you want to allow any role to be authorized,
- but still to be authenticated (signed in).
+Leave empty if you want to allow any role to be authorized, but still to be authenticated (signed in).
+Pass an empty array to ensure nobody has access, even when authenticated. 
 
 	router.get('/', require('permission')(), function(req, res) {
     	res.render('profile');
@@ -37,7 +37,7 @@ There are 2 default values in _permission_ module:
 - route for no permission
 
 Default role property is searched in Express' user role property, `req.user.role`. 
-Route for redirection when user doesn't have permission is `/login`.
+If the user doesn't have permission, a 401 is returned. You can also setup a redirection.
 
 To override these 2 values, do the following on your `app` configuration:
 
