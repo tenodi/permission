@@ -1,6 +1,6 @@
 {
   "name": "permission",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Handle user permissions for routes based on roles.",
   "main": "index.js",
   "scripts": {
@@ -33,10 +33,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ttenodi/permission.git"
+    "url": "https://github.com/tenodi/permission.git"
   },
   "bugs": {
-    "url": "https://github.com/ttenodi/permission/issues"
+    "url": "https://github.com/tenodi/permission/issues"
   },
   "peerDependencies": {
     "express": "4.x",
