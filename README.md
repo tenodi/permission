@@ -85,6 +85,7 @@ p.NOT_AUTHORIZED === 'notAuthorized' // true
 It is noted that you don't need to customize any _permission_ option. But, if you want to, not all of them are needed. This section explains the control flow:
 
 After _permission_ has determined user's authorized status, it:
+
 1. calls ```after``` and passes it ```authorizedStatus```
 2. if ```after``` is not provided, calls Express ```res.redirect()``` with ```redirect``` value and sets Flash message
 3. if ```redirect``` of specific state is not provided, calls Express ```res.status()``` with ```status```.
