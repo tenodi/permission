@@ -47,7 +47,7 @@ Defines property name for Express' user. Defaults to ```role```.
 **notAuthenticated**
 Defines what to do with non-authenticated user. Both ```notAuthenticated``` and ```notAuthorized``` (see below) implement the same interface. This interface consists of 4 properties:
 
-- ```flashType``` {string}: type of the [Flash](https://www.npmjs.com/package/flash) message
+- ```flashType``` {string}: type of the [Flash](https://www.npmjs.com/package/connect-flash) message
 - ```message``` {string}: flash message
 - ```redirect``` {string}: URL or path for [Express](https://www.npmjs.com/package/express) redirection
 - ```status``` {number}: HTTP status for response

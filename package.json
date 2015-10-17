@@ -1,6 +1,6 @@
 {
   "name": "permission",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Handle user permissions for routes based on roles.",
   "main": "index.js",
   "scripts": {
@@ -41,6 +41,6 @@
   "peerDependencies": {
     "express": "4.x",
     "passport": "0.x",
-    "flash": "1.x"
+    "connect-flash": "0.x"
   }
 }
