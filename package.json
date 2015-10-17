@@ -1,12 +1,16 @@
 {
   "name": "permission",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "Handle user permissions for routes based on roles.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
+    "ACL", 
+    "access",
+    "control",
+    "list",
     "permission",
     "role",
     "permissions",
@@ -33,5 +37,10 @@
   },
   "bugs": {
     "url": "https://github.com/ttenodi/permission/issues"
+  },
+  "peerDependencies": {
+    "express": "4.x",
+    "passport": "0.x",
+    "flash": "1.x"
   }
 }

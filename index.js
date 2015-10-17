@@ -9,48 +9,68 @@
  * @param {array} roles User roles that have authorization for the view.
  *            If undefined, any role can check the view.
  */
-module.exports = function(roles){
-  return function(req, res, next) {
-    
-    /**
-     * Default configuration
-     */
-    var noPermissionRedirect  = null;
-    var role                  = 'role';
+var permission = function(roles){
+  return function(req, res, next){
+    var options = req.app.get('permission');
 
     /**
-     * Default configuration is overriden
+     * Setting default values if options are not set.
+     * @define {string} role User's property name describing his role.
+     */    
+    var role      = options.role || 'role';
+
+    /**
+     * Both notAuthenticated and notAuthorized implement the same interface. 
+     * Interface contains 4 properties.
+     * @property {string} flashType 1st argument of req.flash() (flash)
+     * @property {string} message 2nd argument of req.flash() (flash)
+     * @property {string} redirect Path argument of req.redirect() (express)
+     * @property {number} status 1st argument of req.status() (express)
+     *
+     * @define {Object} notAuthenticated Defines properties when user is non authenticated.
      */
-    if (req.app.get('permission')){
-      if ('noPermissionRedirect' in req.app.get('permission')) {
-        noPermissionRedirect = req.app.get('permission').noPermissionRedirect;
-      }
-      if (req.app.get('permission').role){
-        role = req.app.get('permission').role;
+    var notAuthenticated = options.notAuthenticated || {status: 401, redirect: null};
+    /** @define {Object} notAuthorized Defines properties when user is not authorized. */
+    var notAuthorized = options.notAuthorized || {status: 403, redirect: null};
+
+    /**
+     * Function to be called after permission is done with checking ACL.
+     * @enum {string} authorizedStatus : notAuthenticated, notAuthorized, authorized.
+     */
+    var after = options.after || function(req, res, next, authorizedStatus){
+      if (authorizedStatus === permission.AUTHORIZED){
+        next();
+      } else {
+        var state = authorizedStatus === permission.NOT_AUTHORIZED ? notAuthorized : notAuthenticated;
+
+        if (state.redirect) {
+          state.message && req.flash(state.flashType, state.message);
+          res.redirect(state.redirect);
+        }
+        else {
+          res.status(state.status).send(null);
+        }
       }
     }
 
     if (req.isAuthenticated() && !req.user[role]) { throw new Error("User doesn't have property named: " + 
                                                        role + ". See Advantage Start in docs") }
     
-
-    // checks passport integrated function
     if (req.isAuthenticated()) {
-      if (!roles){
-        next();
-      } else if (roles.indexOf(req.user[role]) > -1){
-        next();
-      } else if (noPermissionRedirect != null) {
-        res.redirect(noPermissionRedirect);
+      if (!roles || roles.indexOf(req.user[role]) > -1){
+        after(req, res, next, permission.AUTHORIZED);
       } else {
-        res.status(401).send(null);
+        after(req, res, next, permission.NOT_AUTHORIZED);
       }
     }
-    else if (noPermissionRedirect != null) {
-      res.redirect(noPermissionRedirect);
-    }
     else {
-      res.status(401).send(null);
+      after(req, res, next, permission.NOT_AUTHENTICATED);
     }
   }
 }
+
+Object.defineProperty(permission, 'AUTHORIZED', {value: 'authorized'});
+Object.defineProperty(permission, 'NOT_AUTHORIZED', {value: 'notAuthorized'});
+Object.defineProperty(permission, 'NOT_AUTHENTICATED', {value: 'notAuthenticated'});
+
+module.exports = permission;
