@@ -10,33 +10,33 @@ middleware for [Node.js](http://nodejs.org/). It provides customizable managemen
 
 #### Fast start
 It is as simple as `require('permission')`, because you do want to _require permission_, don't you? Don't mess your model nor view with control-specific logic. Pass middleware determing which roles user needs to have!
-```JavaScript
-	router.get('/', require('permission')(['admin']), function(req, res) {
-    	res.render('stats');
-	})
+``` js
+router.get('/', require('permission')(['admin']), function(req, res) {
+    res.render('stats');
+})
 ```
 
 Pass an array determining which roles one controller supports. 
 Pass an empty array to ensure nobody has access, even when authenticated. 
 Leave empty if you want to allow any role to be authorized, but still to be authenticated (signed in).
 
-```JavaScript
-	router.get('/', require('permission')(), function(req, res) {
-    	res.render('profile');
-	})
+``` js
+router.get('/', require('permission')(), function(req, res) {
+    res.render('profile');
+})
 ```
 
 Fill out array with more roles, if needed.
-```JavaScript
-	router.get('/', require('permission')(['admin', 'user']), function(req, res) {
-    	res.render('schools');
-	})
+``` js
+router.get('/', require('permission')(['admin', 'user']), function(req, res) {
+    res.render('schools');
+})
 ```
 
 #### Advantage start
 There are _permission_ options some of which you'll most likely want to customize. You can do so by setting _permission_ name in Express' _app_ object:
-```JavaScript
-	app.set('permission', {role: 'myRole'});
+``` js
+app.set('permission', {role: 'myRole'});
 ```
 It is optional to customize any option, but when done so, customized option needs to follow its interface. 
 Here you can find listed all the properties that you may customize:
@@ -63,7 +63,7 @@ Only ```status``` property of ```notAuthorized``` is set by default to value ```
 **after**
 Defines custom callback function to be called upon determining the state of user authentication/authorization. This is the function's skeleton:
 
-```JavaScript
+``` js
 function(req, res, next, authorizedStatus){}
 ```
 Arguments ```req```, ```res``` and ```next``` are Express objects, while ```authorizedStatus``` refers to one of the following values:
@@ -74,7 +74,7 @@ Arguments ```req```, ```res``` and ```next``` are Express objects, while ```auth
 
 This allows you to organise logic based on authorized status of the user.
 You can access these constants with:
-```JavaScript
+``` js
 var p = require('permission')
 p.AUTHORIZED === 'authorized' // true
 p.NOT_AUTHENTICATED === 'notAuthenticated' // true
@@ -91,7 +91,7 @@ After _permission_ has determined user's authorized status, it:
 
 #### Example
 This example shows how _permission_ options can be used: we want to redirect user with message if he fails to authenticate and send ```HTTP status 403``` if he fails to authorize.
-```JavaScript
+``` js
 var notAuthenticated = {
 	flashType: 'error',
 	message: 'The entered credentials are incorrect',
