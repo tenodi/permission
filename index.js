@@ -9,15 +9,15 @@
  * @param {array} roles User roles that have authorization for the view.
  *            If undefined, any role can check the view.
  */
-var permission = function(roles){
-  return function(req, res, next){
-    var options = req.app.get('permission');
+var permission = function (roles) {
+  return function (req, res, next) {
+    var options = req.app.get('permission') || {};
 
     /**
      * Setting default values if options are not set.
      * @define {string} role User's property name describing his role.
      */    
-    var role      = options.role || 'role';
+    var role = options.role || 'role';
 
     /**
      * Both notAuthenticated and notAuthorized implement the same interface. 
@@ -29,9 +29,9 @@ var permission = function(roles){
      *
      * @define {Object} notAuthenticated Defines properties when user is non authenticated.
      */
-    var notAuthenticated = options.notAuthenticated || {status: 401, redirect: null};
+    var notAuthenticated = options.notAuthenticated || { status: 401, redirect: null };
     /** @define {Object} notAuthorized Defines properties when user is not authorized. */
-    var notAuthorized = options.notAuthorized || {status: 403, redirect: null};
+    var notAuthorized = options.notAuthorized || { status: 403, redirect: null };
 
     /**
      * Function to be called after permission is done with checking ACL.
@@ -69,8 +69,8 @@ var permission = function(roles){
   }
 }
 
-Object.defineProperty(permission, 'AUTHORIZED', {value: 'authorized'});
-Object.defineProperty(permission, 'NOT_AUTHORIZED', {value: 'notAuthorized'});
-Object.defineProperty(permission, 'NOT_AUTHENTICATED', {value: 'notAuthenticated'});
+Object.defineProperty(permission, 'AUTHORIZED', { value: 'authorized' });
+Object.defineProperty(permission, 'NOT_AUTHORIZED', { value: 'notAuthorized' });
+Object.defineProperty(permission, 'NOT_AUTHENTICATED', { value: 'notAuthenticated' });
 
 module.exports = permission;
