@@ -57,10 +57,20 @@ var permission = function (roles) {
                                                        role + ". See Advantage Start in docs") }
     
     if (req.isAuthenticated()) {
-      if (!roles || roles.indexOf(req.user[role]) > -1){
-        after(req, res, next, permission.AUTHORIZED);
+      if (Array.isArray(req.user[role])) {
+        if (!roles || roles.filter(function(n) {
+            return req.user[role].indexOf(n) != -1;
+          }).length > 0) {
+          after(req, res, next, permission.AUTHORIZED);
+        } else {
+          after(req, res, next, permission.NOT_AUTHORIZED);
+        }
       } else {
-        after(req, res, next, permission.NOT_AUTHORIZED);
+        if (!roles || roles.indexOf(req.user[role]) > -1) {
+          after(req, res, next, permission.AUTHORIZED);
+        } else {
+          after(req, res, next, permission.NOT_AUTHORIZED);
+        }
       }
     }
     else {
